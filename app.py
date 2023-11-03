@@ -6,8 +6,8 @@ app = Flask(__name__)
 
 # Set up OpenAI API credentials
 openai.api_key = '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'
-
-
+# shguieswbki
+# Define
 # Define the default route to return the index.html file
 @app.route("/")
 def index():
@@ -31,6 +31,7 @@ def api():
         return completion.choices[0].message
 
     else :
+        # failed to generaye
         return 'Failed to Generate response!'
     
 
