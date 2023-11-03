@@ -24,7 +24,8 @@ class ChatHistory(db.Model):
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    chat_history = ChatHistory.query.all()
+    return render_template("index.html", chat_history=chat_history)
 
 @app.route("/api", methods=["POST"])
 def api():
@@ -48,6 +49,9 @@ def api():
         return ai_response
     else:
         return 'Failed to Generate response!'
+
+def get_chat_history():
+    return ChatHistory.query.all()
 
 if __name__ == '__main__':
     app.run()
