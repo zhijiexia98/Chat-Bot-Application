@@ -50,8 +50,5 @@ def api():
     else:
         return 'Failed to Generate response!'
 
-def get_chat_history():
-    return ChatHistory.query.all()
-
 if __name__ == '__main__':
     app.run()
