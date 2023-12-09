@@ -2,10 +2,22 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.4;
-  background-color: rgb(7, 7, 7);
+  background-color: #343a40;
   margin: 0;
   padding: 0;
 }
+/* Light Theme */
+body.light {
+  background-color: #C3988E; /* Light background color */
+  color: #343a40; /* Dark text color for better readability */
+}
+
+/* Dark Theme */
+body.dark {
+  background-color: #343a40; /* Dark background color */
+  color: #f8f9fa; /* Light text color for better readability */
+}
+
 
 .chat-box {
   height: 350px;

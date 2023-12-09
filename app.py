@@ -35,7 +35,8 @@ translator = Translator()
 limiter = Limiter(
     get_remote_address,
     app=app,
-    default_limits=["200 per day", "50 per hour"]  # We can always customize these values as needed
+    default_limits=["200 per day", "60 per hour"]  
+    # We can always customize these values as needed
 )
 
 
@@ -45,9 +46,14 @@ class ChatHistory(db.Model):
     user_message = db.Column(db.String(), nullable=False)
     ai_response = db.Column(db.String(), nullable=False)
 
+# # Create the database tables if they don't exist
+# with app.app_context():
+#     db.create_all()
+
 # >>>>>>> 655a3781b588c6be4de36300732bcfa841e8d4d0
 @app.route("/")
-@limiter.limit("10 per minute")  # Rate limit for this specific route
+@limiter.limit("10 per minute")  
+# Rate limit for this specific route
 def index():
     chat_history = ChatHistory.query.all()
     return render_template("index.html", chat_history=chat_history)
@@ -65,7 +71,8 @@ def api():
          # Perform sentiment analysis on the message
         analysis = TextBlob(message)
         sentiment = analysis.sentiment
-        print(f"Sentiment Polarity: {sentiment.polarity}")  # For debugging
+        print(f"Sentiment Polarity: {sentiment.polarity}")  
+        # For debugging
 
         # Modify the response based on the sentiment
         if sentiment.polarity < -0.5:

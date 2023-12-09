@@ -53,7 +53,7 @@ class ChatBotTestCase(unittest.TestCase):
             self.assertIsNotNone(entry)  # Check if an entry was created
             # Check if the message in the database matches the one sent
             self.assertEqual(entry.user_message, message['message'])
-    # ... [previous test cases]
+
 
     # Test the API's response to invalid data
     def test_api_with_invalid_data(self):
