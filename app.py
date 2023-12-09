@@ -19,8 +19,7 @@ openai.api_key = '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'
 # Define the default route to return the index.html file
 
 # Configuration for SQLAlchemy
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://xiazhijie:Shinyway123!@localhost:5432/xiazhijie'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://fanmuq:mypassword@localhost/chatdb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://xiazhijie:Shinyway123!@localhost:5432/xiazhijie'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -47,8 +46,8 @@ class ChatHistory(db.Model):
     ai_response = db.Column(db.String(), nullable=False)
 
 # # Create the database tables if they don't exist
-# with app.app_context():
-#     db.create_all()
+with app.app_context():
+    db.create_all()
 
 # >>>>>>> 655a3781b588c6be4de36300732bcfa841e8d4d0
 @app.route("/")
@@ -63,6 +62,9 @@ def api():
     try:
         data = request.json
         message = data.get("message")
+        if not message.strip():  # Check if message is empty or contains only whitespace
+            return jsonify({"response": "Empty message received"}), 400  # or any other status code you prefer
+
         target_language = data.get("language", "en")  # Default to English if no language is provided
 
         # Translate message to English before sending to GPT-3
@@ -71,8 +73,7 @@ def api():
          # Perform sentiment analysis on the message
         analysis = TextBlob(message)
         sentiment = analysis.sentiment
-        print(f"Sentiment Polarity: {sentiment.polarity}")  
-        # For debugging
+        # print(f"Sentiment Polarity: {sentiment.polarity}")  # For debugging
 
         # Modify the response based on the sentiment
         if sentiment.polarity < -0.5:
@@ -102,6 +103,19 @@ def api():
     except Exception as e:
         app.logger.error(f"Exception occurred: {e}")
         return jsonify({"error": "Failed to generate response!"}), 500
+
+@app.route("/clear-db", methods=["POST"])
+def clear_db():
+    try:
+        with app.app_context():
+            # Delete all records in the ChatHistory table
+            ChatHistory.query.delete()
+            db.session.commit()
+            return jsonify({"message": "Database cleared successfully"}), 200
+    except Exception as e:
+        app.logger.error(f"Failed to clear database: {e}")
+        return jsonify({"error": "Failed to clear database"}), 500
+
 
 if __name__ == '__main__':
     app.run()

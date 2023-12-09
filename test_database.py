@@ -5,7 +5,8 @@ class DatabaseTestCase(unittest.TestCase):
 
     def setUp(self):
         # Configure the app for testing
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://xiazhijie:Shinyway123!@localhost:5432/xiazhijie'
+        # test database url
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://xiazhijie:Shinyway123!@localhost:5432/postgres'
         app.config['TESTING'] = True
         self.app = app.test_client()
 
@@ -14,9 +15,10 @@ class DatabaseTestCase(unittest.TestCase):
             db.create_all()
 
     def tearDown(self):
-        # Ensures that the database is emptied for next test
+        # Clear all the testing input
         with app.app_context():
             db.drop_all()
+            db.create_all()
 
     def test_message_storing(self):
         # Send a POST request to the API with a test message
@@ -35,12 +37,20 @@ class DatabaseTestCase(unittest.TestCase):
             self.assertNotEqual(chat_history.ai_response, '')
 
     def test_empty_message_handling(self):
+        # Capture the initial count of records in the database
+        with app.app_context():
+            initial_count = ChatHistory.query.count()
+
+        # Send an empty message and expect a 400 response
         response = self.app.post('/api', json={'message': ''})
         self.assertEqual(response.status_code, 400)  # Assuming the app returns 400 for empty messages
         self.assertIn("Empty message received", response.get_json().get("response", ""))
+
+        # Verify that no new records have been added to the database
         with app.app_context():
-            count = ChatHistory.query.count()
-            self.assertEqual(count, 0)  # No new records should be added
+            new_count = ChatHistory.query.count()
+            self.assertEqual(new_count, initial_count)  # The count should remain the same
+
 
     def test_non_english_message_storing(self):
         test_message = '你好，中国！'
