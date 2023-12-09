@@ -20,7 +20,7 @@ class DatabaseTestCase(unittest.TestCase):
 
     def test_message_storing(self):
         # Send a POST request to the API with a test message
-        response = self.app.post('/api', json={'message': 'Hello, world!'})
+        response = self.app.post('/api', json={'message': 'This is a test for database storing functionality'})
 
         # Check if the response is valid
         self.assertEqual(response.status_code, 200)
@@ -30,9 +30,8 @@ class DatabaseTestCase(unittest.TestCase):
         with app.app_context():
             chat_history = ChatHistory.query.one()
             self.assertIsNotNone(chat_history)
-            self.assertEqual(chat_history.user_message, 'Hello, world!')
-            # Here we assume the AI response is not empty, but in a real test,
-            # you might want to mock the OpenAI API response
+            self.assertEqual(chat_history.user_message, 'This is a test for database storing functionality')
+            # Here we assume the AI response is not empty
             self.assertNotEqual(chat_history.ai_response, '')
 
     def test_empty_message_handling(self):
