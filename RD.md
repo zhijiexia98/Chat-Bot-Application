@@ -6,7 +6,7 @@ This document outlines the functional and non-functional requirements for a web-
 
 ### 1.1 Purpose
 
-The purpose of the chat application is to provide a platform for users to communicate in real-time through text messages. The application should be easy to use, reliable, and customizable.
+The purpose of the chat application is to provide a platform for users to communicate in real-time through text messages. The application should be easy to use, reliable, and customizable. It should reply anything user asked.
 
 ### 1.2 Document Conventions
 
@@ -21,7 +21,31 @@ This document is intended for the development team, project managers, and stakeh
 The scope of the project includes the design, development, testing, and deployment of the chat application on the web platform.
 
 ## 2. Overall Description
+The chatbot application offers users five distinct functions:
 
+Interactive Chatbot:
+
+Enables users to engage in conversations with our chatbot.
+Dark Theme Switch:
+
+Allows users to switch to a dark theme for a different visual experience.
+Light Theme Switch:
+
+Provides the option for users to switch to a light theme.
+Conversation History Clearing:
+
+Empowers users to clear the conversation history for a fresh start.
+Message Sending:
+
+Permits users to send messages within the application.
+Our chatbot is equipped to:
+
+Confirmation Response:
+
+Responds with a thoughtful "let me think :)" to acknowledge receipt of user information.
+Real-time Answers:
+
+Utilizes the ChatGPT API to provide prompt and accurate responses to user queries.
 ### 2.1 Product Perspective
 
 The chat application is a self-contained system that does not require integration with existing systems. It will be accessible via modern web browsers.
@@ -56,6 +80,27 @@ The chat application will operate in a web environment and should be compatible 
 User documentation will be provided in the form of an FAQ and a Getting Started guide within the application.
 
 ## 3. System Features
+Our chatbot application boasts a range of features designed to enhance user interaction and experience:
+
+Intuitive Chat Interaction:
+
+Seamlessly engage in conversations with our chatbot, facilitating a natural and user-friendly experience.
+Theme Customization:
+
+Personalize the visual aesthetics with the option to switch between a Dark Theme and a Light Theme, catering to diverse user preferences.
+Conversation History Management:
+
+Empower users with the ability to clear their conversation history, providing a clean slate for future interactions.
+Message Sending Capability:
+
+Enable users to actively participate by sending messages, fostering a dynamic and interactive environment.
+Efficient Information Confirmation:
+
+Implement a responsive confirmation mechanism, exemplified by a thoughtful "let me think :)" response, assuring users that their information has been received.
+Real-time Answers via ChatGPT API:
+
+Leverage the ChatGPT API to deliver timely and accurate responses, enhancing the chatbot's capabilities and providing users with valuable information.
+These system features collectively contribute to a robust and user-centric platform, ensuring a versatile and enjoyable chatbot experience.
 
 ### 3.1 User Authentication
 
@@ -74,6 +119,7 @@ Users will input their username and password to log in. The system will authenti
 - Users MUST be able to log out.
 
 ### 3.2 Real-time Messaging
+Achieved though using ChatGPT Api.
 
 #### 3.2.1 Description and Priority
 
