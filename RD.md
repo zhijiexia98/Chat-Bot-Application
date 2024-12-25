@@ -193,21 +193,3 @@ No hardware interfaces are required for this application.
 ### 5.4 Business Rules
 
 - User privacy MUST be protected, and data collection SHOULD be minimal and transparent.
-
-## 6. Other Requirements
-
-Any additional requirements not covered above should be addressed here.
-
-## Appendices
-
-### Appendix A: Glossary
-
-- Define any terms or acronyms used in this document for clarity.
-
-### Appendix B: Analysis Models
-
-- Include any models used during analysis, such as data flow diagrams or domain models.
-
-### Appendix C: To-Be-Determined List
-
-- List any items that are still to be determined in the requirements phase.
